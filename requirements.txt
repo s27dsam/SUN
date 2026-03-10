@@ -1,0 +1,11 @@
+fastapi
+uvicorn[standard]
+pymysql
+python-dotenv
+httpx
+pandas
+matplotlib
+openpyxl
+openmeteo-requests
+requests-cache
+retry-requests

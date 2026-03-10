@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sun Safety</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="bg-rays"></div>
+
+    <div class="container">
+        <header>
+            <p class="eyebrow">Melbourne, Australia</p>
+            <h1>Sun Safety</h1>
+            <p class="subtitle">Know your UV. Protect your skin.</p>
+        </header>
+
+        <div class="uv-card">
+            <div class="uv-left">
+                <p class="uv-label-text">Today's UV Index</p>
+                <div class="uv-number" id="uv-index">—</div>
+                <div class="uv-badge" id="uv-label">Loading...</div>
+            </div>
+            <div class="uv-right">
+                <div class="uv-scale">
+                    <div class="scale-bar">
+                        <div class="scale-segment low">Low<br><span>1–2</span></div>
+                        <div class="scale-segment moderate">Moderate<br><span>3–5</span></div>
+                        <div class="scale-segment high">High<br><span>6–7</span></div>
+                        <div class="scale-segment very-high">Very High<br><span>8–10</span></div>
+                        <div class="scale-segment extreme">Extreme<br><span>11+</span></div>
+                    </div>
+                </div>
+                <p class="uv-advice" id="uv-advice">Fetching conditions...</p>
+            </div>
+        </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>
