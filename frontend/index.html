@@ -1,14 +1,18 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sun Safety</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="bg-rays"></div>
 
@@ -37,9 +41,19 @@
                 </div>
                 <p class="uv-advice" id="uv-advice">Fetching conditions...</p>
             </div>
-        </div>
+        </div> <!-- Close uv-card -->
 
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <div class="chart-section">
+            <h2>Melanoma Mortality Trends</h2>
+            <p class="chart-subtitle">Historical skin cancer mortality data in Australia</p>
+            <div class="chart-wrapper">
+                <div id="plotlyChart" style="width:100%; height:100%;"></div>
+            </div>
+        </div>
+    </div> <!-- Close container -->
+
+    <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
