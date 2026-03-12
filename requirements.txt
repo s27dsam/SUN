@@ -9,3 +9,4 @@ openpyxl
 openmeteo-requests
 requests-cache
 retry-requests
+mangum
