@@ -1,6 +1,44 @@
+// Added this so that only the selected screen would show and the others would be hidden
+function showScreen(screenId) {
+    document.querySelectorAll('.screen').forEach(screen => {
+        screen.classList.remove('active');
+    });
+    document.getElementById(screenId).classList.add('active');
+}
+
+// Added code for loading the page, setting up buttons, screens, etc.
+// Forces Plotly to resize charts so they fit correctly inside their container - this is slightly buggy but works
 document.addEventListener('DOMContentLoaded', () => {
+    // Navigation
+    document.getElementById('go-uv').addEventListener('click', () => {
+        showScreen('uv-screen');
+    });
+
+    document.getElementById('go-charts').addEventListener('click', () => {
+        showScreen('charts-screen');
+
+        setTimeout(() => {
+            window.dispatchEvent(new Event('resize'));
+
+            if (typeof Plotly !== 'undefined') {
+                const chart1 = document.getElementById('plotlyChart');
+                const chart2 = document.getElementById('uvYearlyMaxChart');
+
+                if (chart1) Plotly.Plots.resize(chart1);
+                if (chart2) Plotly.Plots.resize(chart2);
+            }
+        }, 200);
+    });
+
+    document.querySelectorAll('.home-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            showScreen(btn.dataset.target);
+        });
+    });
+
     fetchUVIndex();
     fetchMelanomaDataAndRenderChart();
+    fetchUVYearlyMaxAndRenderChart();
 });
 
 async function fetchUVIndex() {
@@ -79,6 +117,88 @@ async function fetchMelanomaDataAndRenderChart() {
 
     } catch (err) {
         console.error('Error fetching Melanoma Data:', err);
+    }
+}
+
+// Created a function for the second graph, which works similarly to the function above
+async function fetchUVYearlyMaxAndRenderChart() {
+    try {
+        const res = await fetch('./uv_yearly_max.csv');
+        const csvText = await res.text();
+
+        const lines = csvText.trim().split('\n');
+        const headers = lines[0].split(',');
+
+        const yearIndex = headers.indexOf('year');
+        const maxUvIndex = headers.indexOf('max_uv');
+
+        if (yearIndex === -1 || maxUvIndex === -1) {
+            console.error('CSV must contain year and max_uv columns');
+            return;
+        }
+
+        const data = lines.slice(1).map(line => {
+            const cols = line.split(',');
+            return {
+                year: cols[yearIndex].trim(),
+                max_uv: parseFloat(cols[maxUvIndex])
+            };
+        }).filter(row => !isNaN(row.max_uv));
+
+        if (!data.length) {
+            console.error('No valid UV yearly max data found');
+            return;
+        }
+
+        const years = data.map(row => String(row.year));
+        const maxValues = data.map(row => row.max_uv);
+
+        const trace = {
+            x: years,
+            y: maxValues,
+            mode: 'lines+markers',
+            line: { color: '#F97316', width: 2 },
+            marker: { color: '#F97316', size: 6 },
+            fill: 'tozeroy',
+            fillcolor: 'rgba(249, 115, 22, 0.1)',
+            type: 'scatter'
+        };
+
+        const layout = {
+            margin: { t: 10, r: 10, b: 40, l: 40 },
+            xaxis: {
+                title: 'Year',
+                gridcolor: 'rgba(0,0,0,0.05)',
+                tickcolor: '#78716C',
+                titlefont: { color: '#78716C' },
+                tickfont: { color: '#78716C' },
+                tickmode: 'array',
+                tickvals: years,
+                ticktext: years
+            },
+            yaxis: {
+                title: '',
+                gridcolor: 'rgba(0,0,0,0.05)',
+                tickcolor: '#78716C',
+                titlefont: { color: '#78716C' },
+                tickfont: { color: '#78716C' }
+            },
+            paper_bgcolor: 'rgba(0,0,0,0)',
+            plot_bgcolor: 'rgba(0,0,0,0)',
+            hovermode: 'x unified',
+            showlegend: false
+        };
+
+        const config = { responsive: true, displayModeBar: false };
+
+        if (typeof Plotly !== 'undefined') {
+            Plotly.newPlot('uvYearlyMaxChart', [trace], layout, config);
+        } else {
+            console.error('Plotly library not loaded yet.');
+        }
+
+    } catch (err) {
+        console.error('Error loading local UV CSV:', err);
     }
 }
 

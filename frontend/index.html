@@ -17,40 +17,85 @@
     <div class="bg-rays"></div>
 
     <div class="container">
-        <header>
-            <p class="eyebrow">Melbourne, Australia</p>
-            <h1>Sun Safety</h1>
-            <p class="subtitle">Know your UV. Protect your skin.</p>
-        </header>
 
-        <div class="uv-card">
-            <div class="uv-left">
-                <p class="uv-label-text">Today's UV Index</p>
-                <div class="uv-number" id="uv-index">—</div>
-                <div class="uv-badge" id="uv-label">Loading...</div>
+        <!-- HOME SCREEN -->
+        <section id="home-screen" class="screen active">
+            <header class="home-header">
+                <p class="eyebrow">Melbourne, Australia</p>
+                <h1>Sun Safety</h1>
+                <p class="subtitle">Know your UV. Protect your skin.</p>
+            </header>
+
+            <div class="home-tabs">
+                <button class="nav-tab" id="go-uv">UV Index</button>
+                <button class="nav-tab" id="go-charts">Charts &amp; Information</button>
             </div>
-            <div class="uv-right">
-                <div class="uv-scale">
-                    <div class="scale-bar">
-                        <div class="scale-segment low">Low<br><span>1–2</span></div>
-                        <div class="scale-segment moderate">Moderate<br><span>3–5</span></div>
-                        <div class="scale-segment high">High<br><span>6–7</span></div>
-                        <div class="scale-segment very-high">Very High<br><span>8–10</span></div>
-                        <div class="scale-segment extreme">Extreme<br><span>11+</span></div>
-                    </div>
+        </section>
+
+        <!-- UV SCREEN -->
+        <section id="uv-screen" class="screen">
+            <div class="screen-top">
+                <button class="home-btn" data-target="home-screen">← Home</button>
+            </div>
+
+            <div class="uv-card">
+                <div class="uv-left">
+                    <p class="uv-label-text">Today's UV Index</p>
+                    <div class="uv-number" id="uv-index">—</div>
+                    <div class="uv-badge" id="uv-label">Loading...</div>
                 </div>
-                <p class="uv-advice" id="uv-advice">Fetching conditions...</p>
-            </div>
-        </div> <!-- Close uv-card -->
 
-        <div class="chart-section">
-            <h2>Melanoma Mortality Trends</h2>
-            <p class="chart-subtitle">Historical skin cancer mortality data in Australia</p>
-            <div class="chart-wrapper">
-                <div id="plotlyChart" style="width:100%; height:100%;"></div>
+                <div class="uv-right">
+                    <div class="uv-scale">
+                        <div class="scale-bar">
+                            <div class="scale-segment low">Low<br><span>1–2</span></div>
+                            <div class="scale-segment moderate">Moderate<br><span>3–5</span></div>
+                            <div class="scale-segment high">High<br><span>6–7</span></div>
+                            <div class="scale-segment very-high">Very High<br><span>8–10</span></div>
+                            <div class="scale-segment extreme">Extreme<br><span>11+</span></div>
+                        </div>
+                    </div>
+                    <p class="uv-advice" id="uv-advice">Fetching conditions...</p>
+                </div>
             </div>
-        </div>
-    </div> <!-- Close container -->
+        </section>
+
+        <!-- CHARTS SCREEN -->
+        <section id="charts-screen" class="screen">
+            <div class="screen-top">
+                <button class="home-btn" data-target="home-screen">← Home</button>
+            </div>
+
+            <div class="charts-grid">
+                <div class="chart-section">
+                    <h2>Melanoma Mortality Trends</h2>
+                    <p class="chart-subtitle">Historical skin cancer mortality data in Australia</p>
+                    <div class="chart-wrapper">
+                        <div id="plotlyChart" style="width:100%; height:100%;"></div>
+                    </div>
+                    <p class="chart-note">
+                        <br>
+                        Melanoma mortality increased substantially over the long term, before easing slightly in recent years.
+                        This suggests skin cancer has remained a major public health issue in Australia over time.
+                    </p>
+                </div>
+
+                <div class="chart-section">
+                    <h2>UV Index Trends</h2>
+                    <p class="chart-subtitle">Historical yearly maximum UV index in Melbourne</p>
+                    <div class="chart-wrapper">
+                        <div id="uvYearlyMaxChart" style="width:100%; height:100%;"></div>
+                    </div>
+                        <p class="chart-note">
+                        <br>
+                        Melbourne’s yearly maximum UV index stays consistently high across the period shown, with only small year-to-year changes.
+                        This indicates that harmful UV exposure remains an ongoing risk and regular sun protection is still important.
+                    </p>
+                </div>
+            </div>
+        </section>
+
+    </div>
 
     <script src="https://cdn.plot.ly/plotly-2.32.0.min.js"></script>
     <script src="app.js"></script>
